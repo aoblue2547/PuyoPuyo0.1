@@ -362,3 +362,8 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /PuyoPuyo0.1/App/PuyoPuyo0.1(debug).exe
+/PuyoPuyo0.1/App/cpu/sample/cmd.bat
+/PuyoPuyo0.1/App/cpu/sample/null.txt
+/PuyoPuyo0.1/App/cpu/sample/out.txt
+/PuyoPuyo0.1/App/cpu/sample/run.sh
+/PuyoPuyo0.1/App/cpu/sample/sample.exe
