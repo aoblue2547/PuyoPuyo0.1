@@ -1,20 +1,18 @@
 ﻿#pragma once
+#include "frames.hpp"
+#include "Stage.hpp"
+#include "MovePuyo.hpp"
+#include "puyoField.hpp"
+#include "Haipuyo.hpp"
+#include "GameScore.hpp"
+#include "Controller.hpp"
+#include "OjamaManager.hpp"
 
 /*
 ぷよぷよの1ゲームを管轄するクラス
 mainループ上でrunLoop()を呼ぶと状態が更新される
 */
 
-enum playeris;
-class puyoField;
-class Haipuyo;
-class MovePuyo;
-class Controller;
-class GameScore;
-class OjamaManager;
-struct AIconfig;
-class FrameRequest;
-class FrameResponse;
 
 class GameManager {
 private://ゲームを進行するための変数

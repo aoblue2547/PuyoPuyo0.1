@@ -1,14 +1,5 @@
 ﻿#include <Siv3D.hpp> // OpenSiv3D v0.6.5
-#include <bitset>
 #include "core.hpp"
-#include "frames.hpp"
-#include "Stage.hpp"
-#include "MovePuyo.hpp"
-#include "puyoField.hpp"
-#include "Haipuyo.hpp"
-#include "GameScore.hpp"
-#include "Controller.hpp"
-#include "OjamaManager.hpp"
 #include "GameManager.hpp"
 
 #include "Pulldown.hpp"
@@ -21,6 +12,7 @@ TODO:GameStateを作る
 TODO:フレームをeSport仕様にする
 */
 
+//AIのリストの管理とCSVへの記入を行うクラス
 class AIlist {
 private:
 	Array<String> AIname;
@@ -61,23 +53,24 @@ void Main() {
 	TextureAsset::Register(U"puyo", U"puyo_sozai.png");
 	TextureAsset::Register(U"ojama", U"yokokuOjamaPuyo.png");
 	FontAsset::Register(U"Rensa", 20);
-	FontAsset::Register(U"10", 17);
+	FontAsset::Register(U"17", 17);
 
 	/*-----------------変数宣言-------------------*/
 
 	GameManager game(playeris::keyboard, playeris::keyboard);
 
-	String haipuyo = ToString(game.tumoNumber());
-	const Rect area{ Arg::center(Scene::Center().x,450),100,30 };
+	String haipuyoNumber = ToString(game.tumoNumber());
+	const Rect inputArea{ Arg::center(Scene::Center().x,450),100,30 };
 
 	const Array<String> list = { U"Keyboard",U"ProController",U"AI" };
-	GUI::Pulldown p1list{ list,FontAsset(U"10"),Point{Scene::Center().x-160,500} };
-	GUI::Pulldown p2list{ list,FontAsset(U"10"),Point(Scene::Center().x + 20,500) };
+	//TODO:多分左右対称にパラメータ直打ちでなくできるはず
+	GUI::Pulldown p1list{ list,FontAsset(U"17"),Point{Scene::Center().x - 160,500} };
+	GUI::Pulldown p2list{ list,FontAsset(U"17"),Point(Scene::Center().x + 20,500) };
 
 	AIlist AIlist;
 
-	GUI::Pulldown p1AIPulldown(AIlist.AInameArray(), FontAsset(U"10"), Point{ Scene::Center().x - 160,350 });
-	GUI::Pulldown p2AIPulldown(AIlist.AInameArray(), FontAsset(U"10"), Point{ Scene::Center().x + 80,350 });
+	GUI::Pulldown p1AIPulldown(AIlist.AInameArray(), FontAsset(U"17"), Point{ Scene::Center().x - 160,350 });
+	GUI::Pulldown p2AIPulldown(AIlist.AInameArray(), FontAsset(U"17"), Point{ Scene::Center().x + 80,350 });
 
 	
 
@@ -117,16 +110,16 @@ void Main() {
 
 		/*--------------------配ぷよ関連----------------*/
 
-		TextInput::UpdateText(haipuyo);
-		//数字しか入力できないようにする(したい)
-		if (haipuyo.size() != 0 and (*haipuyo.rbegin() - U'0' < 0 or *haipuyo.rbegin() - U'0' >= 10)) {
-			haipuyo.pop_back();
+		TextInput::UpdateText(haipuyoNumber);
+		//TODO:数字しか入力できないようにする(したい)
+		if (haipuyoNumber.size() != 0 and (*haipuyoNumber.rbegin() - U'0' < 0 or *haipuyoNumber.rbegin() - U'0' >= 10)) {
+			haipuyoNumber.pop_back();
 		}
 		const String editingText = TextInput::GetEditingText();
-		area.draw(ColorF{ 0.3 });
-		FontAsset(U"Rensa")(haipuyo + U'|' + editingText).draw(area.stretched(0));
+		inputArea.draw(ColorF{ 0.3 });
+		FontAsset(U"Rensa")(haipuyoNumber + U'|' + editingText).draw(inputArea.stretched(0));
 		if (KeyEnter.down() and !game.nowPlaying()) {
-			game.useTumo(Parse<int>(haipuyo));
+			game.useTumo(Parse<int>(haipuyoNumber));
 		}
 		FontAsset(U"Rensa")(U"ツモ番号 = {}"_fmt(game.tumoNumber())).draw(20, 10, Palette::Black);
 
@@ -147,7 +140,9 @@ void Main() {
 
 		game.runLoop();
 
-	}//メインループend
+	}
+
+
 
 }
 
