@@ -180,6 +180,9 @@
     <ClCompile Include="Pulldown.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="AIlist.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -844,6 +847,9 @@
     </ClInclude>
     <ClInclude Include="Pulldown.hpp">
       <Filter>Source Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="AIlist.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

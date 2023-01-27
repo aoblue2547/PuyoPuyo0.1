@@ -1,7 +1,7 @@
 ﻿#include <Siv3D.hpp> // OpenSiv3D v0.6.5
 #include "core.hpp"
 #include "GameManager.hpp"
-
+#include "AIlist.hpp"
 #include "Pulldown.hpp"
 
 /*
@@ -12,35 +12,7 @@ TODO:GameStateを作る
 TODO:フレームをeSport仕様にする
 */
 
-//AIのリストの管理とCSVへの記入を行うクラス
-class AIlist {
-private:
-	Array<String> AIname;
-	Array<FilePath> filepath;
-	CSV csv;
-public:
-	AIlist() :csv(U"AI_list.csv") {
-		if (not csv) {
-			throw Error{ U"Failed to load `AI_list.csv`" };
-		}
-		for (size_t row = 1; row < csv.rows(); ++row) {
-			AIname.push_back(csv[row][0]);
-			filepath.push_back(csv[row][1]);
-		}
-	}
-	size_t size() {
-		return AIname.size();
-	}
-	void addAI(const String& name, String& path) {
-		AIname.push_back(name);
-		filepath.push_back(path);
-		csv.writeRow(name, path);
-		csv.save(U"AI_list.csv");
-	}
-	const Array<String>& AInameArray() {
-		return AIname;
-	}
-};
+
 
 
 void Main() {

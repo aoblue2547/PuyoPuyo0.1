@@ -113,6 +113,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AIlist.cpp" />
     <ClCompile Include="core.cpp" />
     <ClCompile Include="frames.cpp" />
     <ClCompile Include="GameManager.cpp" />
@@ -327,6 +328,7 @@
     <Xml Include="App\example\xml\test.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AIlist.hpp" />
     <ClInclude Include="Controller.hpp" />
     <ClInclude Include="core.hpp" />
     <ClInclude Include="frames.hpp" />
